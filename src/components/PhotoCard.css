@@ -1,0 +1,22 @@
+.photo-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.photo-wrapper {
+  gap: 0.25rem;
+  height: 100%;
+  overflow: hidden;
+}
+
+.photo-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-author {
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+}
