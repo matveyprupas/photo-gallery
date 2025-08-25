@@ -35,7 +35,6 @@ export const useInfiniteScroll = ({
       // If the target element is intersecting and we are not already loading
       // and there is more data to load, then call the onLoadMore function.
       if (target.isIntersecting && !isLoading && hasMore) {
-        console.log('useInfiniteScroll fire onLoadMore');
         onLoadMore();
       }
     },
@@ -46,20 +45,21 @@ export const useInfiniteScroll = ({
   useEffect(() => {
     // Create an observer with the handler and options
     const observer = new IntersectionObserver(handleObserver, options);
+    const currentElement = observerRef.current;
 
     // If the observerRef is attached to an element, start observing it
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    if (currentElement) {
+      observer.observe(currentElement);
     }
 
     // Cleanup function: disconnect the observer when the component unmounts
     // or when dependencies change.
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (currentElement) {
+        observer.unobserve(currentElement);
       }
     };
-  }, [handleObserver, options, observerRef]); // Rerun effect if these change
+  }, [handleObserver, options]); // Rerun effect if these change
 
   return observerRef; // Return the ref to be attached to a DOM element
 };

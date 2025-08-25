@@ -33,8 +33,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
     if (isLoading || !hasMore) return; // Prevent multiple fetches
     setIsLoading(true);
 
-    console.log('inside fetchPhotos page', page);
-
     try {
       const response = await fetch(
         `https://picsum.photos/v2/list?page=${page}&limit=20`
@@ -51,11 +49,14 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
       } else {
         // Append new photos to the existing list, avoiding duplicates
         setPhotos((prevPhotos) => {
-          const existingIds = new Set(prevPhotos.map((p) => p.id));
-          const filteredPhotos = newPhotos.filter(
-            (p) => !existingIds.has(p.id)
-          );
-          return [...prevPhotos, ...filteredPhotos];
+          // TODO: for dev mode uncomment const filteredPhotos and use it instead of ...newPhotos
+
+          // const existingIds = new Set(prevPhotos.map((p) => p.id));
+          // const filteredPhotos = newPhotos.filter(
+          //   (p) => !existingIds.has(p.id)
+          // );
+
+          return [...prevPhotos, ...newPhotos];
         });
         setPage((prevPage) => prevPage + 1);
       }
@@ -68,8 +69,6 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
 
   // Fetch initial data on component mount
   useEffect(() => {
-    console.log('PhotoGallery useEffect fire fetchPhotos');
-
     fetchPhotos();
   }, []); // The empty dependency array ensures this runs only once
 
@@ -145,12 +144,14 @@ const PhotoGallery: React.FC<PhotoGalleryProps> = ({
   useEffect(() => {
     buildRows();
     const resizeObserver = new ResizeObserver(buildRows);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
+    const currentContainer = containerRef.current;
+
+    if (currentContainer) {
+      resizeObserver.observe(currentContainer);
     }
     return () => {
-      if (containerRef.current) {
-        resizeObserver.unobserve(containerRef.current);
+      if (currentContainer) {
+        resizeObserver.unobserve(currentContainer);
       }
     };
   }, [buildRows]);
