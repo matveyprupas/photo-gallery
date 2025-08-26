@@ -9,3 +9,8 @@ export interface Photo {
   displayWidth?: number;
   displayHeight?: number;
 }
+
+export interface Row {
+  photos: Photo[];
+  height: number;
+}
