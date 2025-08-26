@@ -15,8 +15,6 @@ export const useFetchPhotos = () => {
     if (isLoading || !hasMore) return; // Prevent multiple fetches
     setIsLoading(true);
 
-    console.log('Fetching photos for page:', page.current);
-
     try {
       const response = await fetch(
         `https://picsum.photos/v2/list?page=${page.current}&limit=20`
