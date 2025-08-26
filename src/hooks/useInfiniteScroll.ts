@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect, useMemo } from 'react';
 
 // Defines the props for our custom hook
 interface UseInfiniteScrollProps {
@@ -41,10 +41,13 @@ export const useInfiniteScroll = ({
     [onLoadMore, isLoading, hasMore]
   );
 
+  const observer = useMemo<IntersectionObserver>(() => new IntersectionObserver(handleObserver, options), [handleObserver, options]);
+
   // useEffect sets up and cleans up the IntersectionObserver
   useEffect(() => {
     // Create an observer with the handler and options
-    const observer = new IntersectionObserver(handleObserver, options);
+    // const observer = new IntersectionObserver(handleObserver, options);
+    // const observerLocal = observer.currnt;
     const currentElement = observerRef.current;
 
     // If the observerRef is attached to an element, start observing it
@@ -59,7 +62,7 @@ export const useInfiniteScroll = ({
         observer.unobserve(currentElement);
       }
     };
-  }, [handleObserver, options]); // Rerun effect if these change
+  }, [handleObserver, options, observer]); // Rerun effect if these change
 
   return observerRef; // Return the ref to be attached to a DOM element
 };

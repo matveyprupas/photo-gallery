@@ -8,7 +8,7 @@ export const useFetchPhotos = () => {
   const [hasMore, setHasMore] = useState(true);
   const page = useRef(1);
   const shouldFetchPhotoOnce = useRef(true);
-  // const options = useRef({ rootMargin: '200px' });
+  const options = useRef({ rootMargin: '200px' });
 
   // Memoized function to fetch photos from the API
   const fetchPhotos = useCallback(async () => {
@@ -55,8 +55,7 @@ export const useFetchPhotos = () => {
     onLoadMore: fetchPhotos,
     isLoading,
     hasMore,
-    // options: options.current,
-    options: { rootMargin: '200px' },
+    options: options.current,
   });
 
   return { photos, loaderRef, isLoading, hasMore };
