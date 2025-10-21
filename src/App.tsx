@@ -1,4 +1,3 @@
-import PhotoGallery from './components/PhotoGallery';
 import './App.css';
 
 export default function App() {
@@ -7,10 +6,9 @@ export default function App() {
       <div className="app-container">
         <div className="content-wrapper">
           <header className="app-header">
-            <h1 className="app-title">Adaptive photo grid</h1>
+            <h1 className="app-title">Home Assignment</h1>
           </header>
           <main>
-            <PhotoGallery />
           </main>
         </div>
       </div>
