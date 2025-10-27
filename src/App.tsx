@@ -12,8 +12,12 @@ export default function App() {
             <h1 className="app-title">Home Assignment</h1>
             <nav>
               <ul className="nav-links">
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/films">Films</Link></li>
+                <li>
+                  <Link to="/about">About</Link>
+                </li>
+                <li>
+                  <Link to="/films">Films</Link>
+                </li>
               </ul>
             </nav>
           </header>
