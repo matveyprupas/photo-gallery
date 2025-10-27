@@ -14,17 +14,19 @@ export default function Films() {
 
   useEffect(() => {
     fetch('https://swapi.dev/api/films/')
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         setFilms(data.results);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         setError('Failed to fetch films');
-      }).finally(() => { setLoading(false); });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
-
 
   return (
     <div className="films-page">
@@ -32,16 +34,18 @@ export default function Films() {
 
       {loading && <div>Loading...</div>}
       {error && <div>{error}</div>}
-      {films && films.length > 0 && <div className="films-grid">
-        {films.map(film => (
-          <div key={film.episode_id} className="film-card">
-            <h3>{film.title}</h3>
-            <p>Episode: {film.episode_id}</p>
-            <p>Director: {film.director}</p>
-            <p>Release Date: {film.release_date}</p>
-          </div>
-        ))}
-      </div>}
+      {films && films.length > 0 && (
+        <div className="films-grid">
+          {films.map((film) => (
+            <div key={film.episode_id} className="film-card">
+              <h3>{film.title}</h3>
+              <p>Episode: {film.episode_id}</p>
+              <p>Director: {film.director}</p>
+              <p>Release Date: {film.release_date}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
